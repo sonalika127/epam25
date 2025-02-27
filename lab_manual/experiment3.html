@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit Profit Calculator</title>
+</head>
+<body>
+    <h2>Deposit Profit Calculator</h2>
+    <button onclick="calculateProfit()">Calculate Profit</button>
+    <p id="result"></p>
+
+    <script>
+        function calculateProfit() {
+            const amount = parseFloat(prompt("Enter Initial Deposit Amount:"));
+            const rate = parseFloat(prompt("Enter Annual Interest Rate (%):")) / 100;
+            const years = parseInt(prompt("Enter Number of Years:"));
+            
+            if (!isNaN(amount) && !isNaN(rate) && !isNaN(years) && years > 0) {
+                const profit = amount * Math.pow((1 + rate), years) - amount;
+                document.getElementById("result").textContent = "Total Profit: " + profit.toFixed(2);
+            } else {
+                document.getElementById("result").textContent = "Please enter valid values.";
+            }
+        }
+    </script>
+</body>
+</html>
