@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Array Function</title>
+</head>
+<body>
+    <h2>Filter Array Function</h2>
+    <label for="numbers">Enter numbers separated by commas:</label>
+    <input type="text" id="numbers" placeholder="e.g. 1,2,3,4,5">
+    
+    <label for="filter">Choose a filter:</label>
+    <select id="filter">
+        <option value="even">Even Numbers</option>
+        <option value="odd">Odd Numbers</option>
+        <option value="greater">Greater than 5</option>
+        <option value="less">Less than 5</option>
+        <option value="ascending">Sort Ascending</option>
+        <option value="descending">Sort Descending</option>
+    </select>
+    
+    <button onclick="applyFilter()">Apply Filter</button>
+    <p id="result"></p>
+
+    <script>
+        function filterArray(arr, filterFunc) {
+            return arr.filter(filterFunc);
+        }
+
+        function applyFilter() {
+            const inputArray = document.getElementById("numbers").value.split(',').map(Number);
+            const filterChoice = document.getElementById("filter").value;
+            
+            const filters = {
+                "even": num => num % 2 === 0,
+                "odd": num => num % 2 !== 0,
+                "greater": num => num > 5,
+                "less": num => num < 5,
+                "ascending": arr => arr.sort((a, b) => a - b),
+                "descending": arr => arr.sort((a, b) => b - a)
+            };
+            
+            if (inputArray.some(isNaN)) {
+                document.getElementById("result").textContent = "Please enter valid numbers.";
+                return;
+            }
+            
+            let result;
+            if (filterChoice === "ascending" || filterChoice === "descending") {
+                result = filters[filterChoice](inputArray);
+            } else {
+                result = filterArray(inputArray, filters[filterChoice]);
+            }
+            
+            document.getElementById("result").textContent = "Result: " + result.join(", ");
+        }
+    </script>
+</body>
+</html>
